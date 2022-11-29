@@ -25,9 +25,6 @@ class Cliente(models.Model):
         (GEN_MASCULINO,'Masculino'),
     ]
 
-
-
-
     nome = models.CharField(max_length=50, verbose_name="Nome")
     email = models.EmailField(verbose_name="email")
     cpf = models.CharField(max_length=11, verbose_name="CPF")
@@ -78,7 +75,7 @@ class Cartao(models.Model):
     limite = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="Limite")
 
     def __str__(self):
-        return str(self.bandeira) + "-" + str(self.limite)
+        return str(self.bandeira) + " - " + str(self.limite)
 
 
 class Fatura(Model):
@@ -105,10 +102,7 @@ class Emprestimo(Model):
     STATUS_DIA = 'D'
     STATUS_ATRASADO = 'A'
 
-    STATUS = [
-        (STATUS_DIA, 'Em dia'),
-        (STATUS_ATRASADO, 'Em atraso'),
-    ]
+    STATUS = [(STATUS_DIA, 'Em dia'),(STATUS_ATRASADO, 'Em atraso'),]
 
     status = CharField(max_length=1, choices=STATUS, default=STATUS_DIA, verbose_name="Status")
     conta = ForeignKey(Conta, on_delete=CASCADE, verbose_name="Conta")
@@ -121,6 +115,7 @@ class Emprestimo(Model):
         return str(self.conta)
 
 class Pag_emprestimo(Model):
+
     emprestimo = ForeignKey(Emprestimo, on_delete=CASCADE, verbose_name="Emprestimo")
     data_vencimento = DateField(verbose_name="Data de vencimento")
     valor_parcela = DecimalField(max_digits=8, decimal_places=2, verbose_name="Valor da parcela")
